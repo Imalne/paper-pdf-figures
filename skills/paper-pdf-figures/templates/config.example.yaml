@@ -1,0 +1,22 @@
+# Configuration for --mode manual: crop figure regions by bbox.
+# Usage:
+#   python3 extract_pdf_figures.py paper.pdf --mode manual \
+#       --config config.yaml --out ./figures
+#
+# bbox is [x0, y0, x1, y1] in PDF points (origin top-left; 1 point = 1/72 inch).
+# page is 1-based. id is used as the output directory and filename.
+
+pdf: paper.pdf
+paper_slug: my_paper_2026
+figures:
+  - id: fig_001
+    page: 3
+    bbox: [72, 110, 540, 410]
+    caption: "Figure 1: Overview of the proposed framework."
+    export: [pdf, png]
+
+  - id: fig_002
+    page: 5
+    bbox: [60, 95, 550, 690]
+    caption: "Figure 2: Quantitative and qualitative comparison."
+    export: [pdf, png]

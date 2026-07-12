@@ -1,0 +1,184 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PaperPdfFiguresManifest",
+  "type": "object",
+  "required": ["source_pdf", "paper_slug", "created_at", "tool_version", "figures", "embedded_images", "candidates", "warnings", "tables", "algorithms", "rendered"],
+  "additionalProperties": false,
+  "properties": {
+    "source_pdf": {"type": "string"},
+    "paper_slug": {"type": "string"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "tool_version": {"type": "string"},
+    "run_args": {"type": "object"},
+    "figures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "page", "bbox_pdf_points", "type", "files", "extraction_method", "dpi"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string"},
+          "page": {"type": "integer", "minimum": 1},
+          "bbox_pdf_points": {"type": "array", "items": {"type": "number"}, "minItems": 4, "maxItems": 4},
+          "type": {"type": "string"},
+          "caption": {"type": "string"},
+          "files": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "pdf": {"type": ["string", "null"]},
+              "png": {"type": ["string", "null"]},
+              "svg": {"type": ["string", "null"]}
+            }
+          },
+          "sha256": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "pdf": {"type": "string"},
+              "png": {"type": "string"},
+              "svg": {"type": "string"}
+            }
+          },
+          "extraction_method": {"type": "string"},
+          "dpi": {"type": "integer", "minimum": 1},
+          "caption_source": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "tables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "page", "bbox_pdf_points", "type", "files", "extraction_method", "dpi"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string"},
+          "page": {"type": "integer", "minimum": 1},
+          "bbox_pdf_points": {"type": "array", "items": {"type": "number"}, "minItems": 4, "maxItems": 4},
+          "type": {"type": "string"},
+          "caption": {"type": "string"},
+          "files": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "pdf": {"type": ["string", "null"]},
+              "png": {"type": ["string", "null"]},
+              "svg": {"type": ["string", "null"]}
+            }
+          },
+          "sha256": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "pdf": {"type": "string"},
+              "png": {"type": "string"},
+              "svg": {"type": "string"}
+            }
+          },
+          "extraction_method": {"type": "string"},
+          "dpi": {"type": "integer", "minimum": 1},
+          "caption_source": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "algorithms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "page", "bbox_pdf_points", "type", "files", "extraction_method", "dpi"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string"},
+          "page": {"type": "integer", "minimum": 1},
+          "bbox_pdf_points": {"type": "array", "items": {"type": "number"}, "minItems": 4, "maxItems": 4},
+          "type": {"type": "string"},
+          "caption": {"type": "string"},
+          "files": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "pdf": {"type": ["string", "null"]},
+              "png": {"type": ["string", "null"]},
+              "svg": {"type": ["string", "null"]}
+            }
+          },
+          "sha256": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "pdf": {"type": "string"},
+              "png": {"type": "string"},
+              "svg": {"type": "string"}
+            }
+          },
+          "extraction_method": {"type": "string"},
+          "dpi": {"type": "integer", "minimum": 1},
+          "caption_source": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "embedded_images": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "page", "xref", "format", "width", "height", "file", "sha256"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string"},
+          "page": {"type": "integer", "minimum": 1},
+          "xref": {"type": "integer", "minimum": 1},
+          "format": {"type": "string"},
+          "width": {"type": "integer", "minimum": 1},
+          "height": {"type": "integer", "minimum": 1},
+          "file": {"type": "string"},
+          "sha256": {"type": "string"}
+        }
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["page", "bbox_pdf_points"],
+        "additionalProperties": false,
+        "properties": {
+          "page": {"type": "integer", "minimum": 1},
+          "bbox_pdf_points": {"type": "array", "items": {"type": "number"}, "minItems": 4, "maxItems": 4},
+          "score": {"type": ["number", "null"]},
+          "label": {"type": ["string", "null"]},
+          "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1}
+        }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code"],
+        "additionalProperties": false,
+        "properties": {
+          "code": {"type": "string"},
+          "page": {"type": ["integer", "null"], "minimum": 1},
+          "detail": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "rendered": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "page", "file", "dpi", "width", "height"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string"},
+          "page": {"type": "integer", "minimum": 1},
+          "file": {"type": "string"},
+          "dpi": {"type": "integer", "minimum": 1},
+          "width": {"type": "integer", "minimum": 1},
+          "height": {"type": "integer", "minimum": 1}
+        }
+      }
+    }
+  }
+}
