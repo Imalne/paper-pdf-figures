@@ -1,0 +1,12 @@
+{
+  "name": "paper-pdf-figures",
+  "version": "0.1.0",
+  "description": "Extract figures, tables, and algorithms from academic PDF papers. Five modes: auto (DocLayout-YOLO model), embedded, manual, detect, render. Offline; preserves vectors.",
+  "author": {
+    "name": "Imalne"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/Imalne/paper-pdf-figures",
+  "repository": "https://github.com/Imalne/paper-pdf-figures",
+  "keywords": ["pdf", "figures", "academic", "extraction", "doclayout-yolo"]
+}

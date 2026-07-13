@@ -14,7 +14,16 @@ allowed-tools:
 ## 主流程
 
 1. 确定输入 PDF 路径和输出目录。
-2. **先读 `run.sh`** -- 它是运行时入口，包含安装了所有依赖的 Python 解释器路径。`run.sh` 里的 `python` 路径是用哪个解释器的唯一事实来源。不要用别的 `python3`（如系统默认）跑 `check_deps.py` -- 它可能报告 `run.sh` 的解释器里实际已装的依赖为缺失。正确做法：要么用 `run.sh` 里的 python 跑 check_deps，要么直接跳过检查**跑 `run.sh`**（步骤 4）-- 它会用正确的解释器报告真正缺什么。
+2. **首次使用**：检查 `${CLAUDE_SKILL_DIR}/scripts/run.sh` 是否存在。
+   * **如果 `run.sh` 存在**：读它 -- 它包含安装了所有依赖的 Python 解释器路径，是唯一事实来源。不要用别的 `python3` 跑 `check_deps.py`。
+   * **如果 `run.sh` 不存在**（如通过 `/plugin install` 安装但没跑安装器）：先跑安装器：
+
+     ```bash
+     bash ${CLAUDE_SKILL_DIR}/scripts/install.sh
+     ```
+
+     这会装 Python 依赖（基础 + 可选 ML）、生成 `run.sh`（含正确解释器路径）、设置 HF 镜像。跑完后 `run.sh` 就存在了，后续都用它。
+     非交互模式：`bash ${CLAUDE_SKILL_DIR}/scripts/install.sh --yes --no-ml`
 3. 选择模式：
    * `auto` - **推荐**。基于模型：检测 figure / table / algorithm 区域，各自与 caption 合并，自动裁剪矢量 PDF + PNG（无需 config）。需要 ML 依赖。
    * `embedded` - 提取原始内嵌光栅图（JPEG/PNG/JP2/TIFF）。无需模型。

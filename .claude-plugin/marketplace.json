@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "paper-pdf-figures",
+  "description": "Extract figures, tables, and algorithms from academic PDF papers",
+  "owner": {
+    "name": "Imalne"
+  },
+  "plugins": [
+    {
+      "name": "paper-pdf-figures",
+      "description": "Extract figures, tables, and algorithms from academic PDF papers. Five modes: auto (DocLayout-YOLO), embedded, manual, detect, render.",
+      "source": ".",
+      "category": "productivity"
+    }
+  ]
+}

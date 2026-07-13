@@ -14,7 +14,14 @@ Use this skill when the user wants to extract or save figures from academic PDF 
 ## Main workflow
 
 1. Identify the input PDF path and output directory.
-2. **Read `run.sh` first** -- it is the runtime entry point and contains the Python interpreter that has all dependencies installed. The `python` path in `run.sh` is the single source of truth for which interpreter to use. Do NOT run `check_deps.py` with a different `python3` (e.g. the system default) -- it may report missing deps that are actually installed in `run.sh`'s interpreter. To check deps correctly, either run `check_deps.py` with the same python that `run.sh` uses, or simply skip the dep check and **run `run.sh` directly** (step 4) -- it will report what's actually missing in the correct interpreter.
+2. **First-time setup**: check if `${CLAUDE_SKILL_DIR}/scripts/run.sh` exists.
+   * **If `run.sh` exists**: read it -- it contains the Python interpreter with all dependencies installed. That interpreter is the single source of truth. Do NOT run `check_deps.py` with a different `python3`.
+   * **If `run.sh` does NOT exist** (e.g., installed via `/plugin install` without running the installer): run the installer first:
+     ```bash
+     bash ${CLAUDE_SKILL_DIR}/scripts/install.sh
+     ```
+     This installs Python deps (basic + optional ML), generates `run.sh` with the correct interpreter, and sets up HF endpoint. After this, `run.sh` exists and all subsequent runs use it.
+     For non-interactive: `bash ${CLAUDE_SKILL_DIR}/scripts/install.sh --yes --no-ml`
 3. Choose a mode:
    * `auto` - **recommended**. Model-based: detects figure / table / algorithm regions, merges each with its caption, and crops vector PDF + PNG automatically (no config needed). Requires ML deps.
    * `embedded` - extract original embedded raster images (JPEG/PNG/JP2/TIFF). No model needed.
@@ -38,7 +45,7 @@ Use this skill when the user wants to extract or save figures from academic PDF 
 
 ## Important rules
 
-* **Read `run.sh` before anything else** -- it defines the Python interpreter with installed deps. All dep checks and execution must use that interpreter, not the system `python3`.
+* **First check `run.sh`** -- if it doesn't exist, run `install.sh` first (step 2). If it exists, it defines the Python interpreter with installed deps. All dep checks and execution must use that interpreter, not the system `python3`.
 * Never modify the original PDF (opened read-only; verified by sha256 in acceptance).
 * Do not upload PDFs or images to external services; offline except first-run model weight download.
 * Prefer `auto` for figure extraction; fall back to `manual` (with `detect` to find bboxes) when ML deps are unavailable.
