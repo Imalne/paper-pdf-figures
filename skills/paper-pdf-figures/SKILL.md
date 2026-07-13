@@ -16,12 +16,11 @@ Use this skill when the user wants to extract or save figures from academic PDF 
 1. Identify the input PDF path and output directory.
 2. **First-time setup**: check if `${CLAUDE_SKILL_DIR}/scripts/run.sh` exists.
    * **If `run.sh` exists**: read it -- it contains the Python interpreter with all dependencies installed. That interpreter is the single source of truth. Do NOT run `check_deps.py` with a different `python3`.
-   * **If `run.sh` does NOT exist** (e.g., installed via `/plugin install` without running the installer): run the installer first:
+   * **If `run.sh` does NOT exist** (e.g., installed via `/plugin install` without running the installer): run the installer interactively (do NOT add `--yes` -- the user needs to choose ML deps, Python env, and HF mirror):
      ```bash
      bash ${CLAUDE_SKILL_DIR}/scripts/install.sh
      ```
-     This installs Python deps (basic + optional ML), generates `run.sh` with the correct interpreter, and sets up HF endpoint. After this, `run.sh` exists and all subsequent runs use it.
-     For non-interactive: `bash ${CLAUDE_SKILL_DIR}/scripts/install.sh --yes --no-ml`
+     The installer will ask: install target (user/project), whether to install ML deps (recommended for `auto` mode), which Python env to install ML deps into (current/conda/venv), and which HuggingFace download endpoint (direct/mirror/custom). After this, `run.sh` exists and all subsequent runs use it.
 3. Choose a mode:
    * `auto` - **recommended**. Model-based: detects figure / table / algorithm regions, merges each with its caption, and crops vector PDF + PNG automatically (no config needed). Requires ML deps.
    * `embedded` - extract original embedded raster images (JPEG/PNG/JP2/TIFF). No model needed.
